@@ -1,7 +1,7 @@
-import { ORM } from '@lionrockjs/central';
+import IdentifierUser from "../model/IdentifierUser.mjs";
 
 export default class Identifier {
-  static Model = ORM.require('IdentifierUser');
+  static Model = IdentifierUser;
 
   static isPostDataContainsIdentifierField(postData){
     return true;

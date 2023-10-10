@@ -1,3 +1,6 @@
+import url from "node:url";
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url)).replace(/\/$/, '');
+
 import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
@@ -10,8 +13,6 @@ import Person from "../classes/model/Person.mjs";
 import Role from "../classes/model/Role.mjs";
 import User from "../classes/model/User.mjs";
 import Login from "../classes/model/Login.mjs";
-import ConfigAuth from "../config/auth.mjs";
-import ConfigRegister from "../config/register.mjs";
 
 ORM.defaultAdapter = ORMAdapterSQLite;
 ControllerMixinDatabase.DEFAULT_DATABASE_DRIVER = DatabaseAdapterBetterSQLite3;
@@ -28,8 +29,8 @@ describe('login test', () => {
     await Central.initConfig(new Map([
       ['cookie', ''],
       ['session', ''],
-      ['auth', ConfigAuth],
-      ['register', ConfigRegister],
+      ['auth', (await import('../config/auth.mjs')).default],
+      ['register', (await import('../config/register.mjs')).default],
       ['edm', ''],
     ]));
   });
@@ -75,6 +76,7 @@ describe('login test', () => {
   test('display login fail', async () => {
     const c = new ControllerAuth({ body: 'username=hellox&password=Hello1234!', headers: {}, query: {}, raw: { url: 'example.html' }, cookies: {} });
     const r = await c.execute('fail');
+    if (r.status === 500 || r.status === 404)console.log(c.body);
     expect(r.status).toBe(200);
   });
 });

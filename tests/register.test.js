@@ -1,3 +1,6 @@
+import url from "node:url";
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url)).replace(/\/$/, '');
+
 import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
@@ -12,9 +15,6 @@ import Login from "../classes/model/Login.mjs";
 
 import ControllerRegister from '../classes/controller/Register.mjs';
 
-import ConfigAuth from '../config/auth.mjs';
-import ConfigRegister from '../config/register.mjs';
-
 Central.classPath.set('model/IdentifierUser.mjs', IdentifierUser);
 Central.classPath.set('model/Person.mjs', Person);
 Central.classPath.set('model/Role.mjs', Role);
@@ -22,34 +22,31 @@ Central.classPath.set('model/User.mjs', User);
 Central.classPath.set('model/Login.mjs', Login);
 
 ORM.defaultAdapter = ORMAdapterSQLite;
-ControllerMixinDatabase.DEFAULT_DATABASE_DRIVER = DatabaseAdapterBetterSQLite3;
+ControllerMixinDatabase.DEFAULT_DATABASE_ADAPTER = DatabaseAdapterBetterSQLite3;
 
 describe('register test', () => {
   beforeEach(async () => {
     await Central.init({ EXE_PATH: `${__dirname}/registerTest/test`, APP_PATH: `${__dirname}/registerTest/test` });
+
     await Central.initConfig(new Map([
       ['cookie', ''],
-      ['session', ''],
-      ['auth', ConfigAuth],
-      ['register', ConfigRegister],
+      ['auth', (await import('../config/auth.mjs')).default],
+      ['register', (await import('../config/register.mjs')).default],
       ['edm', ''],
     ]));
   });
 
-  afterEach(async () => {
-  });
-
   // copy db
-  const target = path.normalize(`${__dirname}/registerTest/db/user.sqlite`);
+  const target = path.normalize(`${__dirname}/registerTest/database/user.sqlite`);
   if (fs.existsSync(target))fs.unlinkSync(target);
   fs.copyFileSync(path.normalize(`${__dirname}/registerTest/defaultDB/user.sqlite`), target);
   const db = new Database(target);
 
-  const target2 = path.normalize(`${__dirname}/registerTest/db/session.sqlite`);
+  const target2 = path.normalize(`${__dirname}/registerTest/database/session.sqlite`);
   if (fs.existsSync(target2))fs.unlinkSync(target2);
   fs.copyFileSync(path.normalize(`${__dirname}/registerTest/defaultDB/session.sqlite`), target2);
 
-  afterEach(() => {
+  afterEach(async () => {
     db.exec('DELETE FROM persons');
     db.exec('DELETE FROM users');
   });

@@ -1,8 +1,8 @@
 /* Controller auth handle login, logout */
 import { Central, ControllerMixinDatabase, ControllerMixinMime, ControllerMixinView } from '@lionrockjs/central';
 import { Controller } from '@lionrockjs/mvc';
-import { ControllerMixinMultipartForm } from '@lionrockjs/form';
-import { ControllerMixinSession } from '@lionrockjs/session';
+import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
+import { ControllerMixinSession } from '@lionrockjs/mod-session';
 import ControllerMixinAuth from '../controller-mixin/Auth.mjs';
 
 export default class ControllerAuth extends Controller {
@@ -24,8 +24,8 @@ export default class ControllerAuth extends Controller {
   }
 
   async action_login() {
-    this.setTemplate('templates/login', {
-      destination: this.request.query.cp || Central.config.auth.destination,
+    ControllerMixinView.setTemplate(this.state, 'templates/login', {
+      destination: this.request?.query.cp || Central.config.auth.destination,
       message: '',
     });
   }
@@ -33,14 +33,14 @@ export default class ControllerAuth extends Controller {
   async action_login_post() {}
 
   async action_fail() {
-    this.setTemplate('templates/login', {
-      destination: this.request.query.cp,
+    ControllerMixinView.setTemplate(this.state, 'templates/login', {
+      destination: this.request?.query.cp,
       message: 'Login fail.',
     });
   }
 
   async action_logout() {
-    this.setTemplate('templates/login', {
+    ControllerMixinView.setTemplate(this.state, 'templates/login', {
       destination: Central.config.auth.destination,
       message: 'User Log Out Successfully.',
     });

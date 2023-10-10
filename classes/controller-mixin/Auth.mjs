@@ -1,6 +1,6 @@
 import { ControllerMixin } from '@lionrockjs/mvc';
 import { ControllerMixinDatabase, ORM } from '@lionrockjs/central';
-import { ControllerMixinMultipartForm } from '@lionrockjs/form';
+import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
 import HelperAuth from '../helper/Auth.mjs';
 import User from '../model/User.mjs';
 
