@@ -1,0 +1,27 @@
+@startuml
+skinparam Shadowing false
+
+#000:<color:#FFF>change username</color>;
+if(have password) then (no)
+  :ask user change password>
+  end;
+else (yes)
+  :display change username page>
+endif
+
+:input new username and password<
+if(check username exist) then (yes)
+  :user name exit message>
+  end
+else (no)
+  if(validate password) then (no)
+    :reject by invalid password>
+    end
+  else (yes)
+      :change username and password hash|
+      :change username success message>
+      stop
+  endif
+endif
+
+@enduml

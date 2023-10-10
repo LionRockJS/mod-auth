@@ -1,0 +1,69 @@
+@startuml
+skinparam Shadowing false
+
+:sign up;
+start
+fork
+#000:<color:#FFF>Sign up with User Name and Password</color>;
+:input name, username, password<
+->submit;
+
+if (is User Name exist) then (yes)
+  :User name exist;
+  :Display login screen>
+  end
+else (no)
+  :write user information/
+endif
+
+fork again
+
+#000:<color:#FFF>Sign up with Email</color>;
+:input name, email, password<
+#e77:generate or input user name<
+->submit;
+
+if (is User Name OR Email exist) then (yes)
+  :User name exist;
+  :Display login screen>
+  end
+else (no)
+  :write user information/
+  :Send verification email|
+
+endif
+
+fork again
+#000:<color:#FFF>Signup with Phone Number</color>;
+:input name, phone number <
+->submit;
+
+if (is Phone Number exist) then (yes)
+  :Account exist;
+  :Display login screen>
+  end
+else(no)
+  :write user information/
+  :Send verification sms|
+
+endif
+
+fork again
+#000:<color:#FFF>Sign up SNS</color>;
+:select provider (FB, google, apple)<
+:authenticate from provider|
+if(identifier exist)then (yes)
+  :user exist;
+  :Display Login Screen>
+  end
+else (no)
+  :write user information/
+
+endif
+
+end fork
+
+:signed in;
+
+
+@enduml

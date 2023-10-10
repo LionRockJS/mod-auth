@@ -1,0 +1,14 @@
+@startuml
+#000:<color:#FFF>add SSO</color>;
+:select provider (FB, google, apple)<
+:authenticate from provider|
+
+if(identifier exist)then (yes)
+  :SSO identifier already used>
+  end
+else (no)
+  :add identifier/
+  :add SSO success message>
+  stop
+endif
+@enduml

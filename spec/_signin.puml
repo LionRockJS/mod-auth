@@ -1,0 +1,87 @@
+@startuml
+skinparam Shadowing false
+:sign in;
+start
+fork
+#000:<color:#FFF>login with user name and password</color>;
+:input user name and password <
+if(authorize with user name and password) then (reject)
+  :reject to fail page>
+  end;
+else (accept)
+endif
+
+fork again
+#000:<color:#FFF>login with email</color>;
+:enter email<
+if(email exist) then (no)
+  : email is not registered >
+  end;
+else (yes)
+  :send passcode|
+  :passcode send message>
+endif
+
+:==user read passcode email;
+:enter passcode<
+while(passcode validate)
+->invalid;
+:limit retry for 5 times;
+
+end while (valid)
+
+fork again
+#000:<color:#FFF>login with phone number</color>;
+:enter phone number<
+if(phone number exist) then (no)
+  : phone number is not registered >
+  end;
+else (yes)
+  :send passcode|
+  :passcode send message>
+endif
+
+:==user read passcode sms;
+:enter passcode<
+while(passcode validate)
+->invalid;
+:limit retry for 5 times;
+
+end while (valid)
+
+fork again
+#000:<color:#FFF>login with SSO;
+
+:select provider (FB, google, apple)<
+:authenticate from provider|
+if(identifier exist)then (no)
+  :no record found, do you want to sign up?>
+  if(signup) then (no)
+    :back to login page>
+    end
+  else (yes)
+    :write user information/
+  endif
+else (yes)
+endif
+
+fork again
+  #000:<color:#FFF>forgot user name</color>;
+  :input email<
+  :send email with user name|
+  stop
+fork again
+  #000:<color:#FFF>forgot password</color>;
+  :enter user name;
+  :send password reset link|
+  :==user click reset password link;
+  :reset password page>
+  :input user name and new password<
+  :update password hash/
+  :notify password changes|
+  stop
+end fork
+
+:signed in;
+
+@enduml

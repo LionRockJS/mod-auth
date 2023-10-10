@@ -1,0 +1,21 @@
+@startuml
+  #000:<color:#FFF>add email</color>;
+    if(have password) then (no)
+      :ask user change password>
+      end;
+    else (yes)
+      :display add email page>
+    endif
+
+  :input new email, password<
+  if(is email duplicated) then (yes)
+    :email already used>
+    :add fraud score/
+    end;
+  else (no)
+    :add identifier/
+    :Send verification email|
+    :display send success message>
+    stop
+  endif
+@enduml

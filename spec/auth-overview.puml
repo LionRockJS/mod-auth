@@ -1,0 +1,107 @@
+@startuml
+!pragma teoz true
+skinparam Shadowing false
+
+!$selectIdentifier = "select identifier by post data \nHelper.getIdentifier(postData)"
+!$do_login = "#000:<color:#FFF>ControllerMixinAuth.doLogin()</color>\n<color:#FFF>save user login record</color>\n<color:#FFF>assign login object to session</color>"
+
+title Auth Code Overview
+start
+fork
+:register;
+:$selectIdentifier;
+split
+  :identifier user
+  + username;
+split again
+  :identifier password
+  + username
+  + password;
+split again
+  :identifier email
+  + email
+  + password;
+split again
+  :identifier phone
+  + phone
+  + otp;
+split again
+  :identifier social
+  + source
+  + token;
+end split
+if (identifier is exist ?) is (yes) then
+  :Error: User already registered;
+  :redirect to login;
+  end;
+else (no)
+  :determine roles;
+  :create default Person to get person id;
+  :extract personal info from post data;
+  :store personal info/
+  :create user with person id;
+  :user add roles;
+  :identifier.registerFilter();
+  :save identifier to database /
+endif
+  $do_login;
+  :redirect to destination;
+end;
+  fork again
+  :login;
+  :$selectIdentifier;
+partition "identifier.login() "{
+  :read identifier by identifier.getName();
+if (have identifier result?) is (yes) then
+  :identifier.loginFilter(result);
+else (no)
+  :Error: Identifier not found;
+  end;
+endif
+  :identifier result;
+}
+  :get user id from identifier;
+  $do_login;
+  :redirect to destination;
+end
+fork again
+  :logout;
+  #000:<color:#FFF>clean session login object</color>;
+  end
+fork again
+  :update person info;
+  :login;
+  :navigate to
+  /account/person;
+  :post fields to
+  /account/person<
+  end
+fork again
+  :change password;
+  :login;
+  :navigate to /account/password/change;
+  :old password
+  new password
+  retype password<
+  :check retype password matches;
+  :check identifier exist;
+  :verify old password hash;
+  :update identifier record/
+  :redirect to destination;
+  end
+fork again
+  :change email;
+  :login;
+  :navigate to /account/email/change;
+  :submit new email and password;
+  :check new email not exist;
+  :check identifier exist;
+  :verify password hash;
+  :update identifier record;
+  :send verification email;
+  :save identifier record /
+  :redirect to destination;
+  end;
+endfork
+
+@enduml

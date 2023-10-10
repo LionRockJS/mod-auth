@@ -1,0 +1,41 @@
+{
+  "type": "module",
+  "name": "@lionrockjs/mod-auth",
+  "version": "1.0.0",
+  "description": "The Sign In Module for KohanaJS",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../../node_modules/jest/bin/jest.js --coverage"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {},
+    "testMatch": [
+      "**/__tests__/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)",
+      "**/?(*.)+(spec|test).mjs"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "mjs"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LionRockJS/mod-auth.git"
+  },
+  "keywords": [
+    "KohanaJS"
+  ],
+  "author": "Kojin Nakana",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/LionRockJS/mod-auth/issues"
+  },
+  "homepage": "github.com/LionRockJS/mod-auth#readme",
+  "dependencies": {}
+}

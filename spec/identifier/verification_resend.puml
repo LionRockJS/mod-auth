@@ -1,0 +1,11 @@
+@startuml
+   #000:<color:#FFF>Resend identifier verification</color>;
+   :input email / phone number<
+   if(identifier match) then (no)
+     :the email / phone number not match >
+     end
+   else (yes)
+     :send verification email / sms|
+   endif
+   stop
+@enduml

@@ -1,0 +1,133 @@
+@startuml
+skinparam Shadowing false
+
+fork
+  #000:<color:#FFF>change username</color>;
+  if(have password) then (no)
+    :ask user change password>
+    end;
+  else (yes)
+    :display change username page>
+  endif
+
+  :input new username and password<
+  if(check username exist) then (yes)
+    :user name exit message>
+    end
+  else (no)
+    if(validate password) then (no)
+      :reject by invalid password>
+      end
+    else (yes)
+        :change username and password hash|
+        :change username success message>
+        stop
+    endif
+  endif
+fork again
+  #000:<color:#FFF>change password</color>;
+  fork
+    ->have password;
+    :input old password, new password, retype password<
+    if(new password != old password AND new password = retype password) then (no)
+      :password typo message>
+      end
+    else(yes)
+      if(verify old password hash) then (invalid)
+        :invalid old password >
+        end;
+      else (valid)
+      endif
+    endif
+  fork again
+    ->no password;
+    :new password, retype password<
+
+    if(new password = retype password) then (no)
+      :password typo message>
+      end
+    else (yes)
+    endif
+  end fork
+  :hash new password with username/
+  :change password success message>
+  stop
+fork again
+  #000:<color:#FFF>add email</color>;
+    if(have password) then (no)
+      :ask user change password>
+      end;
+    else (yes)
+      :display add email page>
+    endif
+
+  :input new email, password<
+  if(is email duplicated) then (yes)
+    :email already used>
+    :add fraud score/
+    end;
+  else (no)
+    :add identifier/
+    :Send verification email|
+    :display send success message>
+
+    :==User check email for verification;
+    :User click verification link <
+    if(browser logged in) then (no)
+      :Display login screen>
+      end
+    else (yes)
+       :update email verify status/
+       :verification success message>
+       stop
+    endif
+  endif
+fork again
+  #000:<color:#FFF>Add Phone Number</color>;
+  :input new PhoneNumber <
+  if(is PhoneNumber duplicated) then (yes)
+    :Phone number exist message>
+    end;
+  else (no)
+    :add identifier/
+    :Send verification sms|
+    :Display send success message>
+  endif
+
+  :==User check SMS for verification code;
+    while (verification code matches) is (no)
+      :Enter verification code<
+    end while (yes)
+    :update verified status /
+    :verification success message >
+    stop
+fork again
+    #000:<color:#FFF>add SSO</color>;
+    :select provider (FB, google, apple)<
+    :authenticate from provider|
+
+    if(identifier exist)then (yes)
+      :SSO identifier already used>
+      end
+    else (no)
+      :add identifier/
+      :add SSO success message>
+      stop
+    endif
+
+fork again
+  #000:<color:#FFF>Remove identifier</color>;
+  :select linked email<
+  if(last identifier) then (yes)
+    :cannot remove last identifier>
+    end
+  else (no)
+    :confirm delete>
+    :submit;
+  endif
+  :remove identifier/
+  :remove identifier success message>
+  stop
+end fork
+
+@enduml

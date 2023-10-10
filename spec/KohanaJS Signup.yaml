@@ -1,0 +1,141 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: KohanaJS API
+  description: ''
+paths:
+  /signup:
+    post:
+      description: Signup to create new user
+      responses:
+        200:
+          description: Successful create user
+        400:
+          description: Invalid Input
+        409:
+          description: User already exists
+
+  /login:
+    post:
+      description: User Login
+      responses:
+        200:
+          description: Successful Login
+        400:
+          description: Invalid Input
+  /logout:
+    get:
+      description: User Logout
+      responses:
+        200:
+          description: Successful Logout
+  /forgot-password:
+    post:
+      description: User Logout
+      responses:
+        200:
+          description: Successful Logout
+  /forgot-username:
+    post:
+      description: User Logout
+      responses:
+        200:
+          description: Successful Logout
+
+  /reset-password:
+    post:
+      description: User Logout
+      responses:
+        200:
+          description: Successful Logout
+  /account/change-email:
+    post:
+      description: User Logout
+      responses:
+        200:
+          description: Successful Logout
+  /account/change-password:
+    post:
+      description: User Logout
+      responses:
+        200:
+          description: Successful Logout
+  '/account/activate/{code}':
+    post:
+      description: User Logout
+      parameters:
+        - in: path
+          name: code
+          type: string
+          required: true
+          description: activate code for current login strategy
+      responses:
+        200:
+          description: Successful Logout
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /admin82/KohanaJS/1.0.0
+schemes:
+  - https
+tags:
+  - name: Auth
+definitions:
+  Person:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      first_name:
+        type: string
+      last_name:
+        type: string
+      phone:
+        type: string
+      email:
+        type: string
+  Role:
+    type: object
+    properties:
+      name:
+        type: string
+  User:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      person:
+        $ref: '#/definitions/Person'
+      role:
+        $ref: '#/definitions/Role'
+
+  PasswordIdentifiers:
+    type: object
+    required:
+      - identifier
+      - password
+    properties:
+      identifier:
+        type: string
+      verified:
+        type: boolean
+      reset_code:
+        type: string
+      password:
+        type: string
+      user:
+        $ref: '#/definitions/User'
+
+  Login:
+    type: object
+    properties:
+      ip:
+        type: string
+      note:
+        type: string
+      user:
+        $ref: '#/definitions/User'
+        

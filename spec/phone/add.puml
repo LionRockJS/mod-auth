@@ -1,0 +1,13 @@
+@startuml
+  #000:<color:#FFF>Add Phone Number</color>;
+  :input new PhoneNumber <
+  if(is PhoneNumber duplicated) then (yes)
+    :Phone number exist message>
+    end;
+  else (no)
+    :add identifier/
+    :Send verification sms|
+    :Display send success message>
+  endif
+  stop
+@enduml

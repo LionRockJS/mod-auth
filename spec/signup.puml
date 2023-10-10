@@ -1,0 +1,121 @@
+@startuml
+skinparam Shadowing false
+
+title Sign Up (Register)
+
+start
+
+fork
+#000:<color:#FFF>Sign up with Email</color>;
+:input name, email, password<
+:generate or input user name<
+->submit;
+
+if (is User Name OR Email exist) then (yes)
+  :User name exist;
+  :Display login screen>
+  end
+else (no)
+  :write user information/
+  :Send verification email|
+  :Sign In;
+
+  if (email verified) then (no)
+    fork
+      #000:<color:#FFF>Resend verification</color>;
+      -> click resent link;
+    fork again
+      #000:<color:#FFF>Change email</color>;
+      :input new email, password <
+      if(is email duplicated) then (yes)
+        :Fail to change email;
+        end;
+      else (no)
+        :update email/
+      endif
+    end fork
+    :Send verification email|
+    :Display send success message >
+    :==User check email for verification;
+    :User click verification link <
+      if(browser logged in) then (no)
+        :Display login screen>
+        end
+      else (yes)
+         :update email verify status/
+         :verification success message>
+         :full dashboard>
+         stop
+      endif
+  else (yes)
+   :full dashboard>
+   stop;
+  endif
+endif
+
+fork again
+#000:<color:#FFF>Signup with Phone Number</color>;
+:input name, phone number <
+->submit;
+
+if (is Phone Number exist) then (yes)
+  :Account exist;
+  :Display login screen>
+  end
+else(no)
+  :write user information/
+  :Send verification sms|
+  :Sign In;
+
+  if (phone verified) then (no)
+    fork
+      #000:<color:#FFF>Resend Verification</color>;
+      :input phone number<
+      if(phone number matches) then (no)
+        :error message with link to change phone number>
+        end
+      endif
+    fork again
+      #000:<color:#FFF>Change Phone Number</color>;
+      :input new PhoneNumber <
+      if(is PhoneNumber duplicated) then (yes)
+        :Fail to change PhoneNumber;
+        end;
+      else (no)
+        :update Phone/
+      endif
+    end fork
+      :Send verification sms|
+      :Display send success message >
+      :==User check SMS for verification code;
+        while (verification code matches) is (no)
+          :Enter verification code<
+        end while (yes)
+        :update verified status /
+        :verification success message >
+        :full dashboard>
+        stop
+  else (yes)
+    :full dashboard>
+    stop
+  endif
+endif
+
+fork again
+#000:<color:#FFF>Sign up SSO</color>;
+:select provider (FB, google, apple)<
+:authenticate from provider|
+if(identifier exist)then (yes)
+  :user exist;
+  :Display Login Screen>
+  end
+else (no)
+  :write user information/
+  :signin;
+  :full dashboard >
+  stop
+endif
+
+end fork
+
+@enduml

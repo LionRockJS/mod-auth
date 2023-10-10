@@ -1,0 +1,14 @@
+@startuml
+  #000:<color:#FFF>Remove identifier</color>;
+  :select linked email<
+  if(last identifier) then (yes)
+    :cannot remove last identifier>
+    end
+  else (no)
+    :confirm delete>
+    :submit;
+  endif
+  :remove identifier/
+  :remove identifier success message>
+  stop
+@enduml

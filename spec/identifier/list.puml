@@ -1,0 +1,9 @@
+@startuml
+  #000:<color:#FFF>List identifier</color>;
+  :masked all email and phone number,
+  Display all linked identifier with verified status
+
+  List sessions, links to delete sessions
+  >
+  stop
+@enduml

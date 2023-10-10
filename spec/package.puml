@@ -1,0 +1,108 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "URW DIN SemiCond"
+skinparam defaultFontSize 14
+skinparam roundcorner 10
+skinparam classAttributeIconSize 0
+
+class Auth{
+    {static} async authorize(username, password, database, salt, ip)
+    {static} hashPassword(username, password, salt)
+}
+
+abstract class Controller{
+}
+
+Controller <|-- ControllerAccount
+Controller <|-- ControllerAuth
+Controller <|-- ControllerHome
+ControllerAuth --> ControllerMixinLoginRequire
+ControllerAccount --> ControllerMixinLoginRequire
+
+class ControllerAccount{
+    ControllerAccount(request, opts{databaseMap, allowRoles, rejectLanding, layout})
+    async action_activate()
+    async action_change_email()
+    async action_change_email_post()
+    async action_change_password()
+    async action_change_password_post()
+    async action_change_password_result()
+    async action_index()
+    async action_resend_verification(opt)
+}
+
+class ControllerAuth{
+    async action_login()
+    async action_logout()
+    async action_auth()
+    async action_fail()
+
+    async action_forgot_password()
+    async action_forgot_password_post()
+    async action_forgot_password_result()
+
+    async action_forgot_username()
+    async action_forgot_username_post()
+    async action_forgot_username_result()
+
+    async action_reset_password()
+    async action_reset_password_post()
+    async action_reset_password_result()
+
+    async action_signup_post()
+}
+
+class ControllerHome{
+    async action_index()
+}
+
+abstract class ControllerMixin{
+}
+ControllerMixin <|-- ControllerMixinAuth
+ControllerMixin <|-- ControllerMixinEmailRegister
+ControllerMixin <|-- ControllerMixinLoginRequire
+ControllerMixin <|-- ControllerMixinEmailAccount
+
+ControllerMixinEmailRegister --> HelperRegistrar
+
+ControllerMixinAuth --> Auth
+ControllerMixinEmailRegister --> Auth
+
+class ControllerMixinAuth{
+    async action_auth()
+}
+
+class ControllerMixinEmailRegister{
+    async action_forgot_password_post()
+    async action_forgot_username()
+    async action_forgot_username_post()
+    async action_reset_password()
+    async action_reset_password_post()
+}
+
+class ControllerMixinLoginRequire{
+    ControllerMixinLoginRequire(client, rejectLanding, allowRoles)
+}
+
+class ControllerMixinEmailAccount{
+    async action_activate()
+    async action_change_email_post()
+    async action_change_password_post()
+    async action_resend_verification()
+    ControllerMixinEmailAccount(client, database, clientIP, $_POST, opts{mailDB})
+}
+
+class HelperRegistrar{
+    domain
+    helperMail
+
+    HelperRegistrar(mailDB, clientIP, domain, templatePath)
+    activateCode(username, email, salt)
+    resetPasswordSignature(username, resetCode, opt)
+    sendActivateCode(username, email, opt)
+    sendResetPassword(username, email, resetCode, opt)
+    sendUsername(username, email, opt)
+}
+
+@enduml

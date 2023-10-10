@@ -1,0 +1,13 @@
+@startuml
+title Sign Up Use Case
+
+NewUser --> (Sign Up)
+User --> (Sign Up)
+User --> (Sign In)
+User --> (Forgot Password)
+User --> (Forgot User Name)
+User --> (Merge Account)
+Admin --> (CRUD User)
+Admin --> (Merge Account)
+
+@enduml

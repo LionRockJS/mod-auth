@@ -1,0 +1,10 @@
+@startuml
+#000:<color:#FFF>Verify Phone Number</color>;
+:==User check SMS for verification code;
+while (verification code matches) is (no)
+  :Enter verification code<
+end while (yes)
+:update verified status /
+:verification success message >
+stop
+@enduml

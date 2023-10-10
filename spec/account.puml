@@ -1,0 +1,48 @@
+@startuml
+skinparam Shadowing false
+
+title User Account
+:Login and signup screen>
+if(have account) then (no)
+!include _signup.puml
+else (yes)
+!include _signin.puml
+endif
+
+fork
+!include _dashboard.puml
+fork again
+!include _change_username.puml
+
+fork again
+!include _change_password.puml
+
+fork again
+!include email/add.puml
+
+fork again
+!include phone/add.puml
+
+fork again
+!include email/verify.puml
+
+fork again
+!include phone/verify.puml
+
+fork again
+!include identifier/list.puml
+
+fork again
+!include identifier/verification_resend.puml
+
+fork again
+!include identifier/delete.puml
+
+fork again
+#000:<color:#FFF>Logout</color>;
+:clear cookie;
+:remove session;
+stop;
+end fork
+
+@enduml

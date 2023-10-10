@@ -1,0 +1,11 @@
+@startuml
+#000:<color:#FFF>display full dashboard</color>;
+
+if(at least one identifier verified) then (no)
+  :Please verify your identifier>
+  end
+else (yes)
+  :display full dashboard>
+  stop
+endif
+@enduml

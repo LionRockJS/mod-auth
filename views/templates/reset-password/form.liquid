@@ -1,0 +1,20 @@
+<div class="container">
+    <h1 class="display-3">Reset password</h1>
+    <form action="/reset-password/{{ sign }}/{{ code }}" method="post">
+        <div class="form-group">
+            <div>enter your username and new Password</div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="User Name">
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="new Password">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Reset my password</button>
+        </div>
+    </form>
+</div>
