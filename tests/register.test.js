@@ -6,6 +6,7 @@ import path from 'node:path';
 import Database from 'better-sqlite3';
 import { Central, ORM, ControllerMixinDatabase } from '@lionrockjs/central';
 import { ORMAdapterSQLite, DatabaseAdapterBetterSQLite3 } from '@lionrockjs/adapter-database-better-sqlite3';
+import Session from '@lionrockjs/mod-session';
 
 import IdentifierUser from "../classes/model/IdentifierUser.mjs";
 import Person from "../classes/model/Person.mjs";
@@ -26,10 +27,10 @@ ControllerMixinDatabase.DEFAULT_DATABASE_ADAPTER = DatabaseAdapterBetterSQLite3;
 
 describe('register test', () => {
   beforeEach(async () => {
-    await Central.init({ EXE_PATH: `${__dirname}/registerTest/test`, APP_PATH: `${__dirname}/registerTest/test` });
+    await Central.init({ EXE_PATH: `${__dirname}/registerTest/test`, APP_PATH: `${__dirname}/registerTest/test`, node_modules: [Session] });
 
     await Central.initConfig(new Map([
-      ['cookie', ''],
+      ['session',''],
       ['auth', (await import('../config/auth.mjs')).default],
       ['register', (await import('../config/register.mjs')).default],
       ['edm', ''],
