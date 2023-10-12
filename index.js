@@ -1,17 +1,33 @@
-require('kohanajs').addNodeModule(__dirname);
+import url from "node:url";
+const dirname = url.fileURLToPath(new URL('.', import.meta.url)).replace(/\/$/, '');
+export default {dirname}
 
-module.exports = {
-  ControllerAccount: require('./classes/controller/Account'),
-  ControllerAuth: require('./classes/controller/Auth'),
-  ControllerRegister: require('./classes/controller/Register'),
+import ControllerAccount from './classes/controller/Account.mjs';
+import ControllerAuth from './classes/controller/Auth.mjs';
+import ControllerRegister from './classes/controller/Register.mjs';
+import ControllerMixinRegister from './classes/controller-mixin/Register.mjs';
+import ControllerMixinAuth from './classes/controller-mixin/Auth.mjs';
+import ControllerMixinLoginRequire from './classes/controller-mixin/LoginRequire.mjs';
+import ControllerMixinAccount from './classes/controller-mixin/Account.mjs';
+import HelperAuth from './classes/helper/Auth.mjs';
+import Identifier from './classes/identifier/Identifier.mjs';
+import ModelIdentifierUser from './classes/model/IdentifierUser.mjs';
+import ModelUser from './classes/model/User.mjs';
+import ModelRole from './classes/model/Role.mjs';
+import ModelLogin from './classes/model/Login.mjs';
 
-  ControllerMixinRegister: require('./classes/controller-mixin/Register'),
-  ControllerMixinAuth: require('./classes/controller-mixin/Auth'),
-  ControllerMixinLoginRequire: require('./classes/controller-mixin/LoginRequire'),
-  ControllerMixinAccount: require('./classes/controller-mixin/Account'),
-
-  HelperAuth : require('./classes/helper/Auth'),
-
-  Identifier: require('./classes/identifier/Identifier'),
-  ModelIdentifierUser: require('./classes/model/IdentifierUser'),
+export {
+  ControllerAccount,
+  ControllerAuth,
+  ControllerRegister,
+  ControllerMixinRegister,
+  ControllerMixinAuth,
+  ControllerMixinLoginRequire,
+  ControllerMixinAccount,
+  HelperAuth,
+  Identifier,
+  ModelIdentifierUser,
+  ModelUser,
+  ModelRole,
+  ModelLogin,
 };

@@ -1,4 +1,4 @@
-const { RouteList } = require('@kohanajs/mod-route');
+import { RouteList } from '@lionrockjs/central';
 
 RouteList.add('/register', 'controller/Register', 'register_post', 'POST')
 RouteList.add('/login', 'controller/Auth', 'login');
