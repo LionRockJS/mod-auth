@@ -4,6 +4,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url)).replace(/\/$/
 import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
+import { Controller } from '@lionrockjs/mvc';
 import { Central, ORM, ControllerMixinDatabase } from '@lionrockjs/central';
 import { ORMAdapterSQLite, DatabaseAdapterBetterSQLite3 } from '@lionrockjs/adapter-database-better-sqlite3';
 import Session from '@lionrockjs/mod-session';
@@ -77,7 +78,8 @@ describe('register test', () => {
     const identifier = v2[0];
     expect(identifier.name).toBe('hello');
 
-    expect(c.request.session.logged_in).toBe(true);
+    const controllerRequest = c.state.get(Controller.STATE_REQUEST);
+    expect(controllerRequest.session.logged_in).toBe(true);
   });
 
   test('username already use', async () => {
