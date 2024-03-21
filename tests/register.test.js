@@ -7,7 +7,7 @@ import Database from 'better-sqlite3';
 import { Controller } from '@lionrockjs/mvc';
 import { Central, ORM, ControllerMixinDatabase } from '@lionrockjs/central';
 import { ORMAdapterSQLite, DatabaseAdapterBetterSQLite3 } from '@lionrockjs/adapter-database-better-sqlite3';
-import Session from '@lionrockjs/mod-session';
+import { Session } from '@lionrockjs/mod-session';
 
 import IdentifierUser from "../classes/model/IdentifierUser.mjs";
 import Person from "../classes/model/Person.mjs";
@@ -31,7 +31,7 @@ describe('register test', () => {
     await Central.init({ EXE_PATH: `${__dirname}/registerTest/test`, APP_PATH: `${__dirname}/registerTest/test`, node_modules: [Session] });
 
     await Central.initConfig(new Map([
-      ['session',''],
+      ['cookie',(await import('./registerTest/cookie.mjs')).default],
       ['auth', (await import('../config/auth.mjs')).default],
       ['register', (await import('../config/register.mjs')).default],
       ['edm', ''],
