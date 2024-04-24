@@ -1,4 +1,5 @@
-import IdentifierUser from "../model/IdentifierUser.mjs";
+import {ORM} from "@lionrockjs/central";
+const IdentifierUser = await ORM.import('IdentifierUser');
 
 export default class Identifier {
   static Model = IdentifierUser;

@@ -2,7 +2,8 @@ import { Controller } from '@lionrockjs/mvc';
 import { Central, ORM, ControllerMixinDatabase } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
 import DefaultIdentifier from "../identifier/Identifier.mjs";
-import Login from "../model/Login.mjs";
+
+const Login = await ORM.import('Login');
 
 export default class HelperAuth {
   static getIdentifier(postData){
