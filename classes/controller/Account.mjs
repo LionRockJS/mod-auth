@@ -5,7 +5,8 @@ import { ControllerMixinSession } from '@lionrockjs/mod-session';
 import ControllerMixinLoginRequire from '../controller-mixin/LoginRequire';
 import ControllerMixinAccount from "../controller-mixin/Account";
 
-const User = await ORM.import('User');
+import DefaultUser from '../model/User.mjs';
+const User = await ORM.import('User', DefaultUser);
 
 export default class ControllerAccount extends Controller {
   static mixins = [...Controller.mixins,

@@ -3,7 +3,8 @@ import { Central, ORM, ControllerMixinDatabase } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
 import DefaultIdentifier from "../identifier/Identifier.mjs";
 
-const Login = await ORM.import('Login');
+import DefaultLogin from '../model/Login.mjs';
+const Login = await ORM.import('Login', DefaultLogin);
 
 export default class HelperAuth {
   static getIdentifier(postData){
@@ -17,9 +18,9 @@ export default class HelperAuth {
   static async redirect(state, destination=null){
     const $_GET  = state.get(ControllerMixinMultipartForm.GET_DATA);
     const $_POST = state.get(ControllerMixinMultipartForm.POST_DATA);
-    const {redirect} = state.get(Controller.STATE_CLIENT);
+    const client = state.get(Controller.STATE_CLIENT);
 
-    await redirect($_POST['destination'] || $_GET['cp'] || destination || Central.config.auth.destination);
+    await client.redirect($_POST['destination'] || $_GET['cp'] || destination || Central.config.auth.destination);
   }
 
   static async do_login(state, user) {

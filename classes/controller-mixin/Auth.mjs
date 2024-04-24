@@ -3,7 +3,8 @@ import { ControllerMixinDatabase, ORM } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
 import HelperAuth from '../helper/Auth.mjs';
 
-const User = await ORM.import('User');
+import DefaultUser from '../model/User.mjs';
+const User = await ORM.import('User', DefaultUser);
 
 export default class ControllerMixinAuth extends ControllerMixin {
   static USER = 'user';

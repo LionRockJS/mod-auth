@@ -3,8 +3,11 @@ import { ControllerMixinDatabase, ORM } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
 import ControllerMixinAuth from './Auth.mjs';
 
-const User = await ORM.import('User');
-const Person = await ORM.import('Person');
+import DefaultUser from '../model/User.mjs';
+import DefaultPerson from '../model/Person.mjs';
+
+const User = await ORM.import('User', DefaultUser);
+const Person = await ORM.import('Person', DefaultPerson);
 
 export default class ControllerMixinAccount extends ControllerMixin {
   static PERSON = 'accountPerson';
@@ -33,7 +36,7 @@ export default class ControllerMixinAccount extends ControllerMixin {
   }
 
   static async action_change_person_post(state) {
-    const {redirect} = state.get(Controller.STATE_CLIENT);
+    const client = state.get(Controller.STATE_CLIENT);
     const {session} = state.get(Controller.STATE_REQUEST);
 
     const database = state.get(ControllerMixinDatabase.DATABASES).get(state.get(this.DATABASE_NAME));
@@ -60,7 +63,7 @@ export default class ControllerMixinAccount extends ControllerMixin {
     }
 
     if($_POST['destination'] || $_GET['cp']){
-      await redirect($_POST['destination'] || $_GET['cp']);
+      await client.redirect($_POST['destination'] || $_GET['cp']);
     }
   }
 }
