@@ -12,12 +12,12 @@ export default class ControllerMixinLoginRequire extends ControllerMixin {
   }
 
   static async before(state) {
-    const client = state.get(Controller.STATE_CLIENT);
+    const {redirect} = state.get(Controller.STATE_CLIENT);
     const request = state.get(Controller.STATE_REQUEST);
     const { session } = request;
 
     if (!session?.logged_in) {
-      await client.redirect(`${state.get(this.REJECT_LANDING)}?cp=${encodeURIComponent(request.raw.url)}`);
+      await redirect(`${state.get(this.REJECT_LANDING)}?cp=${encodeURIComponent(request.raw.url)}`);
       return;
     }
 
@@ -29,7 +29,7 @@ export default class ControllerMixinLoginRequire extends ControllerMixin {
     const intersection = sessionRoles.filter(it => allowRoles.has(it));
 
     if (!intersection.length) {
-      await client.redirect(`${state.get(this.REJECT_LANDING)}?cp=${encodeURIComponent(request.raw.url)}&exit=role_mismatch`);
+      await redirect(`${state.get(this.REJECT_LANDING)}?cp=${encodeURIComponent(request.raw.url)}&exit=role_mismatch`);
     }
   }
 }

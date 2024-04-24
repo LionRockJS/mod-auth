@@ -1,4 +1,4 @@
-import { ControllerMixin } from '@lionrockjs/mvc';
+import { Controller, ControllerMixin } from '@lionrockjs/mvc';
 import { ControllerMixinDatabase, ORM } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
 import HelperAuth from '../helper/Auth.mjs';
@@ -44,9 +44,9 @@ export default class ControllerMixinAuth extends ControllerMixin {
   }
 
   static async action_logout(state) {
-    const client = state.get(ControllerMixin.CLIENT);
-    const { request } = client;
-    Object.assign(request.session, {
+    const {session} = state.get(Controller.STATE_REQUEST);
+
+    Object.assign(session, {
       logged_in: false,
       user_id: null,
       roles: null,

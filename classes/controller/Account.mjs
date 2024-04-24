@@ -50,11 +50,11 @@ export default class ControllerAccount extends Controller {
   }
 
   async before() {
-    this.state.get(ControllerMixinView.LAYOUT).data.user_role = this.request.session.user_role;
+    this.state.get(ControllerMixinView.LAYOUT).data.user_role = this.state.get(Controller.STATE_REQUEST).session.user_role;
   }
 
   async action_index() {
-    const userId = this.request.session.user_id;
+    const userId = this.state.get(Controller.STATE_REQUEST).session.user_id;
     const database = this.state.get(ControllerMixinDatabase.DATABASES).get('admin');
     const user = await ORM.factory(User, userId, {database});
     const person = await user.parent('person_id');
@@ -65,7 +65,7 @@ export default class ControllerAccount extends Controller {
       identifiers[it.name] = await ORM.readBy(it.Model, 'user_id', [parseInt(userId)], {database, asArray: true});
     }));
 
-    this.setTemplate('templates/account/dashboard', {
+    ControllerMixinView.setTemplate(this.state, 'templates/account/dashboard', {
       person,
       identifiers,
       activated: !!user.activated

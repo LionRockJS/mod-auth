@@ -16,20 +16,19 @@ export default class HelperAuth {
   static async redirect(state, destination=null){
     const $_GET  = state.get(ControllerMixinMultipartForm.GET_DATA);
     const $_POST = state.get(ControllerMixinMultipartForm.POST_DATA);
-    const client = state.get(Controller.STATE_CLIENT);
+    const {redirect} = state.get(Controller.STATE_CLIENT);
 
-    await client.redirect($_POST['destination'] || $_GET['cp'] || destination || Central.config.auth.destination);
+    await redirect($_POST['destination'] || $_GET['cp'] || destination || Central.config.auth.destination);
   }
 
   static async do_login(state, user) {
     const databases = state.get(ControllerMixinDatabase.DATABASES);
     const database = databases.get(state.get('adminDatabaseName'));
 
-    const client = state.get(Controller.STATE_CLIENT);
     const request = state.get(Controller.STATE_REQUEST);
 
     const login = ORM.create(Login, { database });
-    login.ip = client.clientIP;
+    login.ip = state.get(Controller.STATE_CLIENT_IP);
     login.user_id = user.id;
     await login.write();
 

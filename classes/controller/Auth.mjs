@@ -24,8 +24,10 @@ export default class ControllerAuth extends Controller {
   }
 
   async action_login() {
+    const {cp} = this.state.get(Controller.STATE_QUERY);
+
     ControllerMixinView.setTemplate(this.state, 'templates/login', {
-      destination: this.request?.query.cp || Central.config.auth.destination,
+      destination: cp || Central.config.auth.destination,
       message: '',
     });
   }
@@ -33,8 +35,9 @@ export default class ControllerAuth extends Controller {
   async action_login_post() {}
 
   async action_fail() {
+    const {cp} = this.state.get(Controller.STATE_QUERY);
     ControllerMixinView.setTemplate(this.state, 'templates/login', {
-      destination: this.request?.query.cp,
+      destination: cp,
       message: 'Login fail.',
     });
   }
