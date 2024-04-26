@@ -2,8 +2,8 @@ import { Central, ControllerMixinDatabase, ControllerMixinMime, ControllerMixinV
 import { Controller } from '@lionrockjs/mvc';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
 import { ControllerMixinSession } from '@lionrockjs/mod-session';
-import ControllerMixinLoginRequire from '../controller-mixin/LoginRequire';
-import ControllerMixinAccount from "../controller-mixin/Account";
+import ControllerMixinLoginRequire from '../controller-mixin/LoginRequire.mjs';
+import ControllerMixinAccount from "../controller-mixin/Account.mjs";
 
 import DefaultUser from '../model/User.mjs';
 const User = await ORM.import('User', DefaultUser);
