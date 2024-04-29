@@ -24,7 +24,7 @@ Central.classPath.set('model/User.mjs', User);
 Central.classPath.set('model/Login.mjs', Login);
 
 ORM.defaultAdapter = ORMAdapterSQLite;
-ControllerMixinDatabase.DEFAULT_DATABASE_ADAPTER = DatabaseAdapterBetterSQLite3;
+ControllerMixinDatabase.defaultAdapter = DatabaseAdapterBetterSQLite3;
 
 describe('register test', () => {
   beforeEach(async () => {
