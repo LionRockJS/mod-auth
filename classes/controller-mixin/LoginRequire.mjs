@@ -3,7 +3,6 @@ import { Central } from '@lionrockjs/central';
 
 export default class ControllerMixinLoginRequire extends ControllerMixin {
   static REJECT_LANDING = 'rejectLanding';
-
   static ALLOW_ROLES = 'allowRoles';
 
   static init(state) {

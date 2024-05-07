@@ -1,8 +1,8 @@
 /* Controller auth handle login, logout */
 import { Central, ControllerMixinDatabase, ControllerMixinMime, ControllerMixinView } from '@lionrockjs/central';
 import { Controller } from '@lionrockjs/mvc';
-import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
-import { ControllerMixinSession } from '@lionrockjs/mod-session';
+import { ControllerMixinMultipartForm } from '@lionrockjs/mixin-form';
+import { ControllerMixinSession } from '@lionrockjs/mixin-session';
 import ControllerMixinAuth from '../controller-mixin/Auth.mjs';
 
 export default class ControllerAuth extends Controller {

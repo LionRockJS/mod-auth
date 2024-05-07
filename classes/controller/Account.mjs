@@ -1,7 +1,7 @@
 import { Central, ControllerMixinDatabase, ControllerMixinMime, ControllerMixinView, ORM } from '@lionrockjs/central';
 import { Controller } from '@lionrockjs/mvc';
-import { ControllerMixinMultipartForm } from '@lionrockjs/mod-form';
-import { ControllerMixinSession } from '@lionrockjs/mod-session';
+import { ControllerMixinMultipartForm } from '@lionrockjs/mixin-form';
+import { ControllerMixinSession } from '@lionrockjs/mixin-session';
 import ControllerMixinLoginRequire from '../controller-mixin/LoginRequire.mjs';
 import ControllerMixinAccount from "../controller-mixin/Account.mjs";
 
