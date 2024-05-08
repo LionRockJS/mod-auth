@@ -5,16 +5,11 @@ info:
   version: 0.0.1
 servers:
   - url: 'https//'
-tags:
-  - name: register
-  - name: login
-  - name: account
 paths:
   /register:
     post:
       tags:
         - register
-      summary: Register a new user
       responses:
         200:
           description: TBC
@@ -22,14 +17,12 @@ paths:
     get:
       tags:
         - login
-      summary: User Login Form
       responses:
         200:
           description: TBC
     post:
       tags:
         - login
-      summary: Process Login
       responses:
         200:
           description: TBC
@@ -37,7 +30,6 @@ paths:
     get:
       tags:
         - login
-      summary: User Login Fail
       responses:
         200:
           description: TBC
@@ -45,7 +37,6 @@ paths:
     get:
       tags:
         - login
-      summary: User Logout
       responses:
         200:
           description: TBC
@@ -53,7 +44,6 @@ paths:
     get:
       tags:
         - account
-      summary: User Account Details
       responses:
         200:
           description: TBC
@@ -61,14 +51,12 @@ paths:
     get:
       tags:
         - account
-      summary: User Personal Details
       responses:
         200:
           description: TBC
     post:
       tags:
           - account
-      summary: Update User Personal Details
       responses:
         200:
           description: TBC
