@@ -22,7 +22,7 @@ export default class ControllerRegister extends Controller {
 
     this.state.get(ControllerMixinDatabase.DATABASE_MAP)
       .set('session', `${Central.config.auth.databasePath}/session.sqlite`)
-      .set('admin', `${Central.config.auth.databasePath}/${Central.config.auth.userDatabase}`);
+      .set(Central.config.auth.databaseMapName, `${Central.config.auth.databasePath}/${Central.config.auth.userDatabase}`);
   }
 
   async action_register_post() {

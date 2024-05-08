@@ -7,7 +7,7 @@ export default class ControllerMixinLoginRequire extends ControllerMixin {
 
   static init(state) {
     state.set(this.REJECT_LANDING, state.get(this.REJECT_LANDING) || '/');
-    state.set(this.ALLOW_ROLES, state.get(this.ALLOW_ROLES) || new Set(['admin']));
+    state.set(this.ALLOW_ROLES, state.get(this.ALLOW_ROLES) || new Set(Central.config.auth.defaultRoles));
   }
 
   static async before(state) {

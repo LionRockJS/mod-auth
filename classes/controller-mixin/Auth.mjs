@@ -1,5 +1,5 @@
 import { Controller, ControllerMixin } from '@lionrockjs/mvc';
-import { ControllerMixinDatabase, ORM } from '@lionrockjs/central';
+import { Central, ControllerMixinDatabase, ORM } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mixin-form';
 import HelperAuth from '../helper/Auth.mjs';
 
@@ -9,13 +9,13 @@ const User = await ORM.import('User', DefaultUser);
 export default class ControllerMixinAuth extends ControllerMixin {
   static USER = 'user';
 
-  static DATABASE_NAME = 'adminDatabaseName';
+  static DATABASE_NAME = 'userDatabaseName';
 
   static IDENTIFIER_DATABASE_NAME = 'identifierDatabaseName';
 
   static init(state) {
-    state.set(this.DATABASE_NAME, state.get(this.DATABASE_NAME) || 'admin');
-    state.set(this.IDENTIFIER_DATABASE_NAME, state.get(this.IDENTIFIER_DATABASE_NAME) || 'admin');
+    state.set(this.DATABASE_NAME, state.get(this.DATABASE_NAME) || Central.config.auth.databaseMapName);
+    state.set(this.IDENTIFIER_DATABASE_NAME, state.get(this.IDENTIFIER_DATABASE_NAME) || Central.config.auth.databaseMapName);
   }
 
   static async action_login_post(state) {

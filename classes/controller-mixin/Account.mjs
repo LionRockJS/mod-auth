@@ -1,5 +1,5 @@
 import { Controller, ControllerMixin } from '@lionrockjs/mvc';
-import { ControllerMixinDatabase, ORM } from '@lionrockjs/central';
+import { Central, ControllerMixinDatabase, ORM } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mixin-form';
 import ControllerMixinAuth from './Auth.mjs';
 
@@ -14,7 +14,7 @@ export default class ControllerMixinAccount extends ControllerMixin {
   static DATABASE_NAME = ControllerMixinAuth.DATABASE_NAME;
 
   static init(state) {
-    state.set(this.DATABASE_NAME, state.get(this.DATABASE_NAME) || 'admin');
+    state.set(this.DATABASE_NAME, state.get(this.DATABASE_NAME) || Central.config.auth.databaseMapName);
   }
 
   static async setup(state){

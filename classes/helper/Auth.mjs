@@ -2,6 +2,7 @@ import { Controller } from '@lionrockjs/mvc';
 import { Central, ORM, ControllerMixinDatabase } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mixin-form';
 import DefaultIdentifier from "../identifier/Identifier.mjs";
+import ControllerMixinAuth from '../controller-mixin/Auth.mjs';
 
 import DefaultLogin from '../model/Login.mjs';
 const Login = await ORM.import('Login', DefaultLogin);
@@ -25,7 +26,7 @@ export default class HelperAuth {
 
   static async do_login(state, user) {
     const databases = state.get(ControllerMixinDatabase.DATABASES);
-    const database = databases.get(state.get('adminDatabaseName'));
+    const database = databases.get(state.get(ControllerMixinAuth.DATABASE_NAME));
 
     const request = state.get(Controller.STATE_REQUEST);
 

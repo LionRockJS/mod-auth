@@ -17,8 +17,8 @@ export default class ControllerMixinRegister extends ControllerMixin {
   static IDENTIFIER_DATABASE_NAME = ControllerMixinAuth.IDENTIFIER_DATABASE_NAME;
 
   static init(state) {
-    state.set(this.DATABASE_NAME, state.get(this.DATABASE_NAME) || 'admin');
-    state.set(this.IDENTIFIER_DATABASE_NAME, state.get(this.IDENTIFIER_DATABASE_NAME) || 'admin');
+    state.set(this.DATABASE_NAME, state.get(this.DATABASE_NAME) || Central.config.auth.databaseMapName);
+    state.set(this.IDENTIFIER_DATABASE_NAME, state.get(this.IDENTIFIER_DATABASE_NAME) || Central.config.auth.databaseMapName);
   }
 
   static async action_register_post(state) {

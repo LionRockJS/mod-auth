@@ -34,16 +34,16 @@ export default class ControllerAccount extends Controller {
     const {
       databaseMap = new Map([
         ['session', `${Central.config.auth.databasePath}/session.sqlite`],
-        ['admin', `${Central.config.auth.databasePath}/${Central.config.auth.userDatabase}`],
+        [Central.config.auth.databaseMapName, `${Central.config.auth.databasePath}/${Central.config.auth.userDatabase}`],
       ]),
       allowRoles = ['*'],
       rejectLanding = '/login',
       layout = 'layout/account',
     } = opts;
 
-    this.state.get(ControllerMixinDatabase.DATABASE_MAP)
-      .set('session', databaseMap.get('session'))
-      .set('admin', databaseMap.get('admin'));
+    databaseMap.forEach((value, key) => {
+      this.state.get(ControllerMixinDatabase.DATABASE_MAP).set(key, value);
+    });
 
     this.state.set(ControllerMixinView.LAYOUT_FILE, layout);
     this.state.set(ControllerMixinLoginRequire.REJECT_LANDING, rejectLanding);
@@ -56,7 +56,8 @@ export default class ControllerAccount extends Controller {
 
   async action_index() {
     const userId = this.state.get(Controller.STATE_REQUEST).session.user_id;
-    const database = this.state.get(ControllerMixinDatabase.DATABASES).get('admin');
+    const databaseMapName = this.state.get(ControllerMixinAccount.DATABASE_NAME);
+    const database = this.state.get(ControllerMixinDatabase.DATABASES).get(databaseMapName);
     const user = await ORM.factory(User, userId, {database});
     const person = await user.parent('person_id');
 
