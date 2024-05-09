@@ -4,7 +4,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url)).replace(/\/$/
 import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
-import { Central, ORM, ControllerMixinDatabase } from '@lionrockjs/central';
+import { Central, Model, ControllerMixinDatabase } from '@lionrockjs/central';
 import { ORMAdapterSQLite, DatabaseAdapterBetterSQLite3 } from '@lionrockjs/adapter-database-better-sqlite3';
 import ControllerAuth from '../classes/controller/Auth.mjs';
 
@@ -14,7 +14,7 @@ import Role from "../classes/model/Role.mjs";
 import User from "../classes/model/User.mjs";
 import Login from "../classes/model/Login.mjs";
 
-ORM.defaultAdapter = ORMAdapterSQLite;
+Model.defaultAdapter = ORMAdapterSQLite;
 ControllerMixinDatabase.DEFAULT_DATABASE_DRIVER = DatabaseAdapterBetterSQLite3;
 
 Central.classPath.set('model/IdentifierUser.mjs', IdentifierUser);

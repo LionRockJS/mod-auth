@@ -1,6 +1,6 @@
-import { ORM } from '@lionrockjs/central';
+import { Model } from '@lionrockjs/central';
 
-export default class IdentifierUser extends ORM{
+export default class IdentifierUser extends Model{
   user_id = null;
   name = null;
 

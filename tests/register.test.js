@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
 import { Controller } from '@lionrockjs/mvc';
-import { Central, ORM, ControllerMixinDatabase } from '@lionrockjs/central';
+import { Central, Model, ControllerMixinDatabase } from '@lionrockjs/central';
 import { ORMAdapterSQLite, DatabaseAdapterBetterSQLite3 } from '@lionrockjs/adapter-database-better-sqlite3';
 import Session from '@lionrockjs/mixin-session';
 
@@ -23,7 +23,7 @@ Central.classPath.set('model/Role.mjs', Role);
 Central.classPath.set('model/User.mjs', User);
 Central.classPath.set('model/Login.mjs', Login);
 
-ORM.defaultAdapter = ORMAdapterSQLite;
+Model.defaultAdapter = ORMAdapterSQLite;
 ControllerMixinDatabase.defaultAdapter = DatabaseAdapterBetterSQLite3;
 
 describe('register test', () => {
