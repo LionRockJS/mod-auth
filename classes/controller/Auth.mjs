@@ -18,9 +18,8 @@ export default class ControllerAuth extends Controller {
   constructor(request) {
     super(request);
 
-    this.state.get(ControllerMixinDatabase.DATABASE_MAP)
-      .set('session', `${Central.config.auth.databasePath}/session.sqlite`)
-      .set(Central.config.auth.databaseMapName, `${Central.config.auth.databasePath}/${Central.config.auth.userDatabase}`);
+    const dbMap = this.state.get(ControllerMixinDatabase.DATABASE_MAP);
+    Central.config.auth.databaseMap.forEach((v, k) => dbMap.set(k, v));
   }
 
   async action_login() {

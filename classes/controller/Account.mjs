@@ -33,7 +33,6 @@ export default class ControllerAccount extends Controller {
 
     const {
       databaseMap = new Map([
-        ['session', `${Central.config.auth.databasePath}/session.sqlite`],
         [Central.config.auth.databaseMapName, `${Central.config.auth.databasePath}/${Central.config.auth.userDatabase}`],
       ]),
       allowRoles = ['*'],
@@ -41,8 +40,11 @@ export default class ControllerAccount extends Controller {
       layout = 'layout/account',
     } = opts;
 
+    const dbMap = this.state.get(ControllerMixinDatabase.DATABASE_MAP);
+    Central.config.auth.databaseMap.forEach((v, k) => dbMap.set(k, v));
+
     databaseMap.forEach((value, key) => {
-      this.state.get(ControllerMixinDatabase.DATABASE_MAP).set(key, value);
+      dbMap.set(key, value);
     });
 
     this.state.set(ControllerMixinView.LAYOUT_FILE, layout);

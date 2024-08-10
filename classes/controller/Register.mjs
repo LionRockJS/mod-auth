@@ -20,8 +20,10 @@ export default class ControllerRegister extends Controller {
   constructor(request) {
     super(request);
 
+    const dbMap = this.state.get(ControllerMixinDatabase.DATABASE_MAP);
+    Central.config.auth.databaseMap.forEach((v, k) => dbMap.set(k, v));
+
     this.state.get(ControllerMixinDatabase.DATABASE_MAP)
-      .set('session', `${Central.config.auth.databasePath}/session.sqlite`)
       .set(Central.config.auth.databaseMapName, `${Central.config.auth.databasePath}/${Central.config.auth.userDatabase}`);
   }
 

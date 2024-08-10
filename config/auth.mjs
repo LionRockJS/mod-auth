@@ -1,9 +1,16 @@
 import { Central } from '@lionrockjs/central';
 
+const databaseMapName = 'user';
+const userDatabase = 'user.sqlite';
+
 export default {
   databasePath: `${Central.EXE_PATH}/../database`,
-  userDatabase: 'user.sqlite',
-  databaseMapName: 'user',
+  databaseMap: new Map([
+    [databaseMapName, `${Central.EXE_PATH}/../database/${userDatabase}`]
+  ]),
+
+  userDatabase,
+  databaseMapName,
   defaultRoles: ['user'],
   salt: 'thisislonglonglonglongtextover32bytes',
 
