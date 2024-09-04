@@ -16,6 +16,7 @@ export default class ControllerMixinLoginRequire extends ControllerMixin {
     const { session } = request;
 
     if (!session?.logged_in) {
+      state.get(Controller.STATE_HEADERS)['X-Session-Logged-In'] = 'false';
       await client.redirect(`${state.get(this.REJECT_LANDING)}?cp=${encodeURIComponent(request.raw.url)}`);
       return;
     }
