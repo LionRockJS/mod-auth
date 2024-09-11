@@ -4,15 +4,14 @@ const databaseMapName = 'user';
 const userDatabase = 'user.sqlite';
 
 export default {
-  databasePath: `${Central.EXE_PATH}/../database`,
+  databasePath: `${Central.APP_PATH}/../database`,
   databaseMap: new Map([
-    [databaseMapName, `${Central.EXE_PATH}/../database/${userDatabase}`]
+    [databaseMapName, `${Central.APP_PATH}/../database/${userDatabase}`]
   ]),
 
   userDatabase,
   databaseMapName,
   defaultRoles: ['user'],
-  salt: 'thisislonglonglonglongtextover32bytes',
 
   destination: '/account',
   requireActivate: true,
