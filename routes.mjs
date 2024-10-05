@@ -1,4 +1,4 @@
-import { RouteList } from '@lionrockjs/central';
+import { RouteList } from '@lionrockjs/router';
 
 RouteList.add('/register', 'controller/Register', 'register_post', 'POST')
 RouteList.add('/login', 'controller/Auth', 'login');
