@@ -1,6 +1,5 @@
 /* Controller auth handle login, logout */
-import { Central, ControllerMixinDatabase, ControllerMixinMime, ControllerMixinView } from '@lionrockjs/central';
-import { Controller } from '@lionrockjs/mvc';
+import { Controller, Central, ControllerMixinDatabase, ControllerMixinMime, ControllerMixinView } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mixin-form';
 import { ControllerMixinSession } from '@lionrockjs/mixin-session';
 import ControllerMixinAuth from '../controller-mixin/Auth.mjs';
@@ -19,7 +18,10 @@ export default class ControllerAuth extends Controller {
     super(request);
 
     const dbMap = this.state.get(ControllerMixinDatabase.DATABASE_MAP);
-    Central.config.auth.databaseMap.forEach((v, k) => dbMap.set(k, v));
+    dbMap.set(
+      Central.config.auth.databaseMapName,
+      Central.config.auth.databasePath + '/' + Central.config.auth.userDatabase
+    );
   }
 
   async action_login() {

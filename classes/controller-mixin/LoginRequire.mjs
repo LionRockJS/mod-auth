@@ -1,5 +1,4 @@
-import { ControllerMixin, Controller } from '@lionrockjs/mvc';
-import { Central } from '@lionrockjs/central';
+import { Controller, ControllerMixin, Central } from '@lionrockjs/central';
 
 export default class ControllerMixinLoginRequire extends ControllerMixin {
   static REJECT_LANDING = 'rejectLanding';

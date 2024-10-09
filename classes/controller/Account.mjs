@@ -1,5 +1,4 @@
-import { Central, ControllerMixinDatabase, ControllerMixinMime, ControllerMixinView, ORM } from '@lionrockjs/central';
-import { Controller } from '@lionrockjs/mvc';
+import { Controller, Central, ControllerMixinDatabase, ControllerMixinMime, ControllerMixinView, ORM } from '@lionrockjs/central';
 import { ControllerMixinMultipartForm } from '@lionrockjs/mixin-form';
 import { ControllerMixinSession } from '@lionrockjs/mixin-session';
 import ControllerMixinLoginRequire from '../controller-mixin/LoginRequire.mjs';
@@ -32,16 +31,17 @@ export default class ControllerAccount extends Controller {
     super(request);
 
     const {
-      databaseMap = new Map([
-        [Central.config.auth.databaseMapName, `${Central.config.auth.databasePath}/${Central.config.auth.userDatabase}`],
-      ]),
+      databaseMap = new Map(),
       allowRoles = ['*'],
       rejectLanding = '/login',
       layout = 'layout/account',
     } = opts;
 
     const dbMap = this.state.get(ControllerMixinDatabase.DATABASE_MAP);
-    Central.config.auth.databaseMap.forEach((v, k) => dbMap.set(k, v));
+    dbMap.set(
+      Central.config.auth.databaseMapName,
+      Central.config.auth.databasePath + '/' + Central.config.auth.userDatabase
+    );
 
     databaseMap.forEach((value, key) => {
       dbMap.set(key, value);
