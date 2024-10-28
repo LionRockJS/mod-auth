@@ -63,7 +63,7 @@ describe('register test', () => {
 
   test('register new user', async () => {
     const c = new ControllerRegister({ headers: {}, body: 'username=hello', cookies: {} });
-    const r = await c.execute('register_post');
+    const r = await c.execute('register_post', true);
     if (r.status === 404 || r.status === 500)console.log(c.error, c.body);
 
     const vp1 = db.prepare('SELECT * FROM persons').get();

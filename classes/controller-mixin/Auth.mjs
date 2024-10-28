@@ -26,6 +26,9 @@ export default class ControllerMixinAuth extends ControllerMixin {
     const Identifier = HelperAuth.getIdentifier(postData);
     const identifierName = await Identifier.getName(postData);
 
+    /**
+     * @type {Model}
+     */
     const identifierInstance = await ORM.readBy(Identifier.Model, 'name', [identifierName], { database: identifierDatabase, asArray: false, limit: 1 });
     if (!identifierInstance) throw new Error('Identifier not found');
     Object.assign(identifierInstance, await Identifier.loginFilter(identifierInstance, postData, state));
