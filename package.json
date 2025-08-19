@@ -1,8 +1,8 @@
 {
   "type": "module",
   "name": "@lionrockjs/mod-auth",
-  "version": "0.0.11",
-  "description": "The Sign In Module for LionRockJS",
+  "version": "0.0.12",
+  "description": "The Sign-in Module for LionRockJS",
   "main": "index.js",
   "directories": {
     "test": "tests"

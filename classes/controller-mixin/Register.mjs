@@ -14,10 +14,12 @@ const Role = await ORM.import('Role', DefaultRole);
 export default class ControllerMixinRegister extends ControllerMixin {
   static DATABASE_NAME = ControllerMixinAuth.DATABASE_NAME;
   static IDENTIFIER_DATABASE_NAME = ControllerMixinAuth.IDENTIFIER_DATABASE_NAME;
+  static STATE_ALLOW_POST_ASSIGN_ROLE = 'allowPostAssignRole';
 
   static init(state) {
     state.set(this.DATABASE_NAME, state.get(this.DATABASE_NAME) || Central.config.auth.databaseMapName);
     state.set(this.IDENTIFIER_DATABASE_NAME, state.get(this.IDENTIFIER_DATABASE_NAME) || Central.config.auth.databaseMapName);
+    state.set(this.STATE_ALLOW_POST_ASSIGN_ROLE, Central.config.register.allowPostAssignRoleID);
   }
 
   static async action_register_post(state) {
@@ -40,7 +42,12 @@ export default class ControllerMixinRegister extends ControllerMixin {
 
     //determine roles
     let roles = [];
-    if (Central.config.register.allowPostAssignRoleID && postData.roles) {
+
+    if (state.get(this.STATE_ALLOW_POST_ASSIGN_ROLE) && postData.roles) {
+      roles = postData.roles;
+    }
+
+    if(state.get() === true){
       roles = postData.roles;
     }
 
@@ -65,11 +72,7 @@ export default class ControllerMixinRegister extends ControllerMixin {
 
     //user add roles
     const records = await ORM.readBy(Role, 'name', roles, { database, asArray: true });
-    await Promise.all(
-      records.map(async role => {
-        await user.add(role);
-      }),
-    );
+    await user.add(records);
 
     user.person = person;
     user.roles = records;
