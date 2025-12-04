@@ -37,11 +37,11 @@ export default class ControllerAccount extends Controller {
       layout = 'layout/account',
     } = opts;
 
-    const dbMap = this.state.get(ControllerMixinDatabase.DATABASE_MAP);
-    dbMap.set(
-      Central.config.auth.databaseMapName,
-      Central.config.auth.databasePath + '/' + Central.config.auth.userDatabase
-    );
+    this.state.get(ControllerMixinDatabase.DATABASE_MAP)
+      .set(
+        Central.config.auth.databaseMapName, 
+        Central.config.auth.databaseMap.get(Central.config.auth.databaseMapName)
+      );
 
     databaseMap.forEach((value, key) => {
       dbMap.set(key, value);
