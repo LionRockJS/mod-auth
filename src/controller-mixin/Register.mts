@@ -6,6 +6,7 @@ import HelperAuth from "../helper/Auth.mjs";
 import DefaultUser from '../model/User.mjs';
 import DefaultPerson from '../model/Person.mjs';
 import DefaultRole from '../model/Role.mjs';
+import IdentifierUser from '../model/IdentifierUser.mjs';
 
 const User = await ORM.import('User', DefaultUser);
 const Person = await ORM.import('Person', DefaultPerson);
@@ -71,14 +72,14 @@ export default class ControllerMixinRegister extends ControllerMixin {
     await user.write();
 
     //user add roles
-    const records = await ORM.readBy(Role, 'name', roles, { database, asArray: true });
+    const records = await ORM.readBy(Role, 'name', roles, { database, asArray: true }) as DefaultRole[];
     await user.add(records);
 
     user.person = person;
     user.roles = records;
 
     //save identifier to database
-    const result = ORM.create(Identifier.Model, { database: identifierDatabase });
+    const result = ORM.create(Identifier.Model, { database: identifierDatabase }) as IdentifierUser;
     result.user_id = user.id;
     result.name = identifierName;
     Object.assign(result, await Identifier.registerFilter(result, postData, state));

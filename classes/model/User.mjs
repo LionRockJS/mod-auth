@@ -1,6 +1,7 @@
 import { Model } from '@lionrockjs/central';
 export default class User extends Model {
     person;
+    roles;
     person_id = null;
     activated = false;
     static joinTablePrefix = 'user';

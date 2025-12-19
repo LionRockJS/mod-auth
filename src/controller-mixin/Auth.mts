@@ -4,6 +4,7 @@ import { ControllerMixinMultipartForm } from '@lionrockjs/mixin-form';
 import HelperAuth from '../helper/Auth.mjs';
 
 import DefaultUser from '../model/User.mjs';
+import IdentifierUser from '../model/IdentifierUser.mjs';
 const User = await ORM.import('User', DefaultUser);
 
 export default class ControllerMixinAuth extends ControllerMixin {
@@ -30,12 +31,12 @@ export default class ControllerMixinAuth extends ControllerMixin {
     /**
      * @type {Model}
      */
-    const identifierInstance = await ORM.readBy(Identifier.Model, 'name', [identifierName], { database: identifierDatabase, asArray: false, limit: 1 });
+    const identifierInstance = await ORM.readBy(Identifier.Model, 'name', [identifierName], { database: identifierDatabase, asArray: false, limit: 1 }) as IdentifierUser;
     if (!identifierInstance) throw new Error('Identifier not found');
     Object.assign(identifierInstance, await Identifier.loginFilter(identifierInstance, postData, state));
 
     try {
-      const user = await ORM.factory(User, identifierInstance.user_id, { database });
+      const user = await ORM.factory(User, identifierInstance.user_id, { database }) as DefaultUser;
       await user.eagerLoad({
         with: ['Role'],
       });
