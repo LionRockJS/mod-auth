@@ -1,0 +1,35 @@
+import { ControllerMixin, Central } from '@lionrockjs/central';
+import { Controller, ControllerState } from '@lionrockjs/mvc';
+
+export default class ControllerMixinLoginRequire extends ControllerMixin {
+  static REJECT_LANDING = 'rejectLanding';
+  static ALLOW_ROLES = 'allowRoles';
+
+  static init(state) {
+    state.set(this.REJECT_LANDING, state.get(this.REJECT_LANDING) || '/');
+    state.set(this.ALLOW_ROLES, state.get(this.ALLOW_ROLES) || new Set(Central.config.auth.defaultRoles));
+  }
+
+  static async before(state) {
+    const client = state.get(ControllerState.CLIENT);
+    const request = state.get(ControllerState.REQUEST);
+    const { session } = request;
+
+    if (!session?.logged_in) {
+      state.get(ControllerState.HEADERS)['X-Session-Logged-In'] = 'false';
+      await client.redirect(`${state.get(this.REJECT_LANDING)}?cp=${encodeURIComponent(request.raw.url)}`);
+      return;
+    }
+
+    const sessionRoles = session.roles;
+    if (new Set(sessionRoles).has(Central.config.auth.rootRole)) return;
+
+    const allowRoles = state.get(this.ALLOW_ROLES);
+    if(allowRoles.has('*'))return;
+    const intersection = sessionRoles.filter(it => allowRoles.has(it));
+
+    if (!intersection.length) {
+      await client.redirect(`${state.get(this.REJECT_LANDING)}?cp=${encodeURIComponent(request.raw.url)}&exit=role_mismatch`);
+    }
+  }
+}
