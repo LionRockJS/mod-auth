@@ -14,8 +14,8 @@ export default class Identifier {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  static async registerFilter(modelInstance, postData, state={}) {}
+  static async registerFilter(modelInstance, postData, state={}): Promise<any> {}
 
   // eslint-disable-next-line class-methods-use-this
-  static async loginFilter(modelInstance, postData, state={}) {}
+  static async loginFilter(modelInstance, postData, state={}): Promise<any> {}
 }
