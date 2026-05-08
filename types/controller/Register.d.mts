@@ -1,6 +1,6 @@
 import { Controller } from '@lionrockjs/central';
 export default class ControllerRegister extends Controller {
-    static mixins: typeof import("@lionrockjs/central").ControllerMixin[];
+    static mixins: any[];
     constructor(request: any);
     action_register_post(): Promise<void>;
 }

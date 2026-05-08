@@ -1,6 +1,6 @@
 import { Controller } from '@lionrockjs/mvc';
 export default class ControllerAuth extends Controller {
-    static mixins: typeof import("@lionrockjs/central").ControllerMixin[];
+    static mixins: any[];
     constructor(request: any);
     action_login(): Promise<void>;
     action_login_post(): Promise<void>;
