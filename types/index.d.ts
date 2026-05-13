@@ -1,6 +1,20 @@
 declare const _default: {
-    filename: string;
-    configs: string[];
+    configs: {
+        auth: {
+            databaseMap: Map<string, string>;
+            databaseMapName: string;
+            defaultRoles: string[];
+            destination: string;
+            requireActivate: boolean;
+            rootRole: string;
+            identifiers: any[];
+            verified: {};
+        };
+        register: {
+            allowPostAssignRoleID: boolean;
+            defaultRole: string;
+        };
+    };
 };
 export default _default;
 import ControllerAccount from './controller/Account.mjs';

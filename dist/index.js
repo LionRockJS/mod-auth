@@ -1,6 +1,10 @@
+import ConfigAuth from './config/auth.mjs';
+import ConfigRegister from './config/register.mjs';
 export default {
-    filename: import.meta.url,
-    configs: ['auth', 'register']
+    configs: {
+        auth: ConfigAuth,
+        register: ConfigRegister,
+    }
 };
 import ControllerAccount from './controller/Account.mjs';
 import ControllerAuth from './controller/Auth.mjs';
