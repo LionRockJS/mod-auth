@@ -1,6 +1,6 @@
 import { Controller } from '@lionrockjs/mvc';
 export default class ControllerAccount extends Controller {
-    static mixins: any[];
+    static mixins: typeof import("@lionrockjs/central").ControllerMixin[];
     /**
      *
      * @param request
