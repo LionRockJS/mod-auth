@@ -30,4 +30,5 @@ import ModelIdentifierUser from './model/IdentifierUser.mjs';
 import ModelUser from './model/User.mjs';
 import ModelRole from './model/Role.mjs';
 import ModelLogin from './model/Login.mjs';
-export { ControllerAccount, ControllerAuth, ControllerRegister, ControllerMixinRegister, ControllerMixinAuth, ControllerMixinLoginRequire, ControllerMixinAccount, HelperAuth, Identifier, ModelIdentifierUser, ModelUser, ModelRole, ModelLogin, };
+import routes from './routes.mjs';
+export { ControllerAccount, ControllerAuth, ControllerRegister, ControllerMixinRegister, ControllerMixinAuth, ControllerMixinLoginRequire, ControllerMixinAccount, HelperAuth, Identifier, ModelIdentifierUser, ModelUser, ModelRole, ModelLogin, routes };
