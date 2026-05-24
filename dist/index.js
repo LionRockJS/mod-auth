@@ -16,6 +16,8 @@ import ControllerMixinAccount from './controller-mixin/Account.mjs';
 import HelperAuth from './helper/Auth.mjs';
 import Identifier from './identifier/Identifier.mjs';
 import ModelIdentifierUser from './model/IdentifierUser.mjs';
+import ModelPerson from './model/Person.mjs';
+import ModelPersonalInfo from './model/PersonalInfo.mjs';
 import ModelUser from './model/User.mjs';
 import ModelRole from './model/Role.mjs';
 import ModelLogin from './model/Login.mjs';
@@ -24,7 +26,7 @@ Central.controllerFiles.set('controller/Account', ControllerAccount);
 Central.controllerFiles.set('controller/Auth', ControllerAuth);
 Central.controllerFiles.set('controller/Register', ControllerRegister);
 import routes from './routes.mjs';
-export { ControllerAccount, ControllerAuth, ControllerRegister, ControllerMixinRegister, ControllerMixinAuth, ControllerMixinLoginRequire, ControllerMixinAccount, HelperAuth, Identifier, ModelIdentifierUser, ModelUser, ModelRole, ModelLogin, routes };
+export { ControllerAccount, ControllerAuth, ControllerRegister, ControllerMixinRegister, ControllerMixinAuth, ControllerMixinLoginRequire, ControllerMixinAccount, HelperAuth, Identifier, ModelIdentifierUser, ModelPerson, ModelPersonalInfo, ModelUser, ModelRole, ModelLogin, routes };
 Central.viewFiles.set('templates/home', {
     package: '@lionrockjs/auth',
     payload: await import('../views/templates/home.liquid', { with: { type: 'text' } })

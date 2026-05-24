@@ -18,6 +18,8 @@ import ControllerMixinAccount from './controller-mixin/Account.mjs';
 import HelperAuth from './helper/Auth.mjs';
 import Identifier from './identifier/Identifier.mjs';
 import ModelIdentifierUser from './model/IdentifierUser.mjs';
+import ModelPerson from './model/Person.mjs';
+import ModelPersonalInfo from './model/PersonalInfo.mjs';
 import ModelUser from './model/User.mjs';
 import ModelRole from './model/Role.mjs';
 import ModelLogin from './model/Login.mjs';
@@ -40,6 +42,8 @@ export {
   HelperAuth,
   Identifier,
   ModelIdentifierUser,
+  ModelPerson,
+  ModelPersonalInfo,
   ModelUser,
   ModelRole,
   ModelLogin,
